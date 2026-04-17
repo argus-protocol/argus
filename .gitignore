@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+
+# Private local notes — never commit
+private/
+NOTES.md
+OUTREACH.md
+POSTS.md
+
+*.log
+*.sqlite
+*.sqlite-journal
+*.db
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
