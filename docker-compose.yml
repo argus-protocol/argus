@@ -1,0 +1,15 @@
+services:
+  argus:
+    build: .
+    image: argus:local
+    container_name: argus
+    restart: unless-stopped
+    environment:
+      ARGUS_DB: /data/argus.sqlite
+    volumes:
+      - argus-data:/data
+    stdin_open: true
+    tty: true
+
+volumes:
+  argus-data:
