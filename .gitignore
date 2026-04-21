@@ -22,4 +22,5 @@ POSTS.md
 .DS_Store
 .vscode/
 .idea/
+.claude/
 Thumbs.db
