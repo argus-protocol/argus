@@ -11,8 +11,7 @@ OUTREACH.md
 POSTS.md
 
 *.log
-*.sqlite
-*.sqlite-journal
+*.sqlite*
 *.db
 
 .env

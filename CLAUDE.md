@@ -79,8 +79,22 @@ a feature, not an accident.
 - **No token, no on-chain Argus contract yet.** Revisit only if a concrete
   technical need appears (e.g., trust-minimized kill-switch).
 
-## Critical near-term dates
+## Grant track (current)
 
-- **April 22, 2026** — Ethereum Foundation ESP "AI-Powered Protocol Security"
-  RFP deadline. Submitting a proposal for Argus is the highest-leverage action
-  in the project's first month.
+Primary target is the **Ethereum Foundation ESP Wishlist** under *"Existing Tooling
+for Ethereum Developers"*, which explicitly names account-abstraction infrastructure.
+ESP Wishlist decisions are rolling (3–6 weeks), not deadline-driven.
+
+Immediate sequence:
+1. Submit an ESP **Office Hours** request (20-min video call) at
+   https://esp.ethereum.foundation/applicants/office-hours/apply to sanity-check
+   Wishlist fit, part-time framing, and common rejection patterns before applying.
+2. Refine the proposal based on that feedback.
+3. Submit the formal Wishlist application (target: $50K over 5 months, 3 milestones).
+
+The earlier "AI-Powered Protocol Security" RFP (April 22, 2026) was ruled out —
+it requires current PhD students. Do not re-surface it as a target.
+
+Prep materials live in `private/` (gitignored): `proposal-v2.md` is the current
+draft; `office-hours-prep.md` is the call prep package; `grants-research.md`
+covers fallback/parallel tracks (BNB MVB, Base Builder Grants, Gitcoin).
