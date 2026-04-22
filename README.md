@@ -80,7 +80,7 @@ release is a work in progress. The architecture, module boundaries, and
 milestone plan are committed; the first adapter is the current focus.
 
 Follow the [commit history](https://github.com/argus-protocol/argus/commits/main)
-for live progress, or watch the repo for updates. A weekly dev log ships
+for live progress, or the [dev log](./docs/devlog/) for written updates
 alongside each milestone.
 
 ## Roadmap
