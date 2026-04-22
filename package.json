@@ -12,7 +12,8 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "demo:agentkit": "tsx scripts/demo-agentkit.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
@@ -21,7 +22,12 @@
     "typescript": "^5.6.0"
   },
   "dependencies": {
+    "@coinbase/agentkit": "^0.10.4",
     "better-sqlite3": "^12.9.0",
+    "viem": "2.38.3",
     "zod": "^4.3.6"
+  },
+  "overrides": {
+    "viem": "2.38.3"
   }
 }
