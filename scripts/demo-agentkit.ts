@@ -16,6 +16,8 @@ import { createSpendCapPolicy, type SpendCapState } from "../src/policies/spend-
 import { runPolicy } from "../src/core/policies.js";
 import { createSqliteStore } from "../src/storage/sqlite.js";
 import { createConsoleAlerter } from "../src/alerts/console.js";
+import { createDiscordAlerter } from "../src/alerts/discord.js";
+import type { Alerter } from "../src/alerts/alerter.js";
 import type { AgentEvent } from "../src/core/events.js";
 
 const ANVIL_PORT = 18545;
@@ -109,7 +111,12 @@ async function main(): Promise<void> {
     });
 
     const store = createSqliteStore(DB_PATH);
-    const alerter = createConsoleAlerter();
+    const alerters: Alerter[] = [createConsoleAlerter()];
+    const discordUrl = process.env.DISCORD_WEBHOOK_URL;
+    if (discordUrl) {
+      alerters.push(createDiscordAlerter({ webhookUrl: discordUrl }));
+      process.stdout.write("[demo] discord alerter enabled\n");
+    }
     const policy = createSpendCapPolicy({
       id: "spend-cap-demo",
       capWeiPerDay: CAP_WEI,
@@ -129,7 +136,11 @@ async function main(): Promise<void> {
       );
       if (alert) {
         store.appendAlert(alert);
-        void alerter.fire(alert);
+        for (const a of alerters) {
+          Promise.resolve(a.fire(alert)).catch((err: unknown) => {
+            process.stderr.write(`[demo] alerter ${a.name} failed: ${String(err)}\n`);
+          });
+        }
       }
     });
 
