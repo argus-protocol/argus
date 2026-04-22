@@ -17,9 +17,25 @@ const SEVERITY_COLOR: Record<PolicySeverity, number> = {
 const DEFAULT_USERNAME = "Argus";
 const DEFAULT_TIMEOUT_MS = 5000;
 
+// Discord webhook hostnames per https://discord.com/developers/docs/resources/webhook.
+// Tight allowlist prevents a misconfigured env var from POSTing alert payloads to
+// an attacker-controlled URL.
+const DISCORD_WEBHOOK_PREFIXES = [
+  "https://discord.com/api/webhooks/",
+  "https://discordapp.com/api/webhooks/",
+  "https://ptb.discord.com/api/webhooks/",
+  "https://canary.discord.com/api/webhooks/",
+];
+
+function isDiscordWebhookUrl(url: string): boolean {
+  return DISCORD_WEBHOOK_PREFIXES.some((p) => url.startsWith(p));
+}
+
 export function createDiscordAlerter(opts: DiscordAlerterOptions): Alerter {
-  if (!opts.webhookUrl || !opts.webhookUrl.startsWith("https://")) {
-    throw new Error("DiscordAlerter requires an https webhookUrl");
+  if (!opts.webhookUrl || !isDiscordWebhookUrl(opts.webhookUrl)) {
+    throw new Error(
+      "DiscordAlerter requires a webhook URL on a discord.com / discordapp.com host",
+    );
   }
   const username = opts.username ?? DEFAULT_USERNAME;
   const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT_MS;

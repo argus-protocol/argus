@@ -13,7 +13,8 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "start": "node dist/index.js",
-    "demo:agentkit": "tsx scripts/demo-agentkit.ts"
+    "demo:agentkit": "tsx scripts/demo-agentkit.ts",
+    "dashboard": "tsx src/dashboard/server.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
@@ -23,7 +24,9 @@
   },
   "dependencies": {
     "@coinbase/agentkit": "^0.10.4",
+    "@hono/node-server": "^2.0.0",
     "better-sqlite3": "^12.9.0",
+    "hono": "^4.12.14",
     "viem": "2.38.3",
     "zod": "^4.3.6"
   },

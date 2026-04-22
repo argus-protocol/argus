@@ -12,8 +12,8 @@ Scope ruthlessly minimal. One adapter, one policy, one dashboard, one alert chan
 - [x] Docker + docker-compose for local-host deploy
 - [ ] Coinbase AgentKit adapter — β seam (wrap `EvmWalletProvider`), observe-only
 - [ ] Local anvil-based integration test harness (no CDP keys required)
-- [ ] Discord webhook alerter
-- [ ] Minimal dashboard: live tx feed + policy state + alert history (hono + plain HTML)
+- [x] Discord webhook alerter
+- [x] Minimal dashboard: Fleet / Agent / Alerts pages with SSE live refresh (hono + SSR HTML + Tailwind CDN; JSON API from day 1 so SPA swap is frontend-only)
 - [ ] 90-second demo screencap
 - [ ] First public dev log entry
 
