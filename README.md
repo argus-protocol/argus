@@ -83,6 +83,11 @@ Follow the [commit history](https://github.com/argus-protocol/argus/commits/main
 for live progress, or the [dev log](./docs/devlog/) for written updates
 alongside each milestone.
 
+A 90-second demo against a local anvil is at
+[docs/demo.md](./docs/demo.md): real AgentKit surface, four
+`native_transfer` actions, daily spend cap tripping on the fourth.
+One command (`npm run demo:agentkit`) and the full annotated output.
+
 ## Roadmap
 
 Full breakdown in [ROADMAP.md](./ROADMAP.md). Summary:

@@ -1,5 +1,5 @@
 import { spawn, type ChildProcess } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, unlinkSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createWalletClient, http } from "viem";
@@ -20,14 +20,61 @@ import { createDiscordAlerter } from "../src/alerts/discord.js";
 import type { Alerter } from "../src/alerts/alerter.js";
 import type { AgentEvent } from "../src/core/events.js";
 
+// AgentKit fires telemetry to cca-lite.coinbase.com without awaiting or
+// catching the promise (see @coinbase/agentkit action-providers/actionDecorator.js).
+// Offline / firewalled machines crash the demo on Node 22's strict unhandled-
+// rejection default. Swallow that one rejection class only; let everything else
+// surface.
+function isAgentkitTelemetryFailure(reason: unknown): boolean {
+  let cur: unknown = reason;
+  for (let depth = 0; depth < 8 && cur; depth += 1) {
+    if (cur instanceof Error) {
+      if (cur.message.includes("cca-lite.coinbase.com")) return true;
+      const c = cur as Error & { hostname?: string; code?: string };
+      if (c.hostname === "cca-lite.coinbase.com") return true;
+      if (c.code === "ENOTFOUND" || c.code === "ENOENT") return true;
+      cur = (cur as Error & { cause?: unknown }).cause;
+    } else {
+      break;
+    }
+  }
+  return false;
+}
+
+process.on("unhandledRejection", (reason) => {
+  if (isAgentkitTelemetryFailure(reason)) {
+    process.stderr.write("[demo] suppressed AgentKit telemetry error (offline?)\n");
+    return;
+  }
+  const msg = reason instanceof Error ? reason.message : String(reason);
+  process.stderr.write(`[demo] unhandled rejection: ${msg}\n`);
+  process.exit(1);
+});
+
 const ANVIL_PORT = 18545;
 const ANVIL_HOST = "127.0.0.1";
 // Anvil default mnemonic, account #0 — 10000 ETH pre-funded.
 const DEV_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 const RECIPIENT = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"; // anvil #1
-const DB_PATH = process.env.ARGUS_DB ?? "argus-demo.sqlite";
+const DEFAULT_DB_PATH = "argus-demo.sqlite";
+const DB_PATH = process.env.ARGUS_DB ?? DEFAULT_DB_PATH;
 const CAP_WEI = 1_000_000_000_000_000_000n; // 1 ETH / day
+
+// Demo is intended to be idempotent: each run starts from a clean policy state
+// so the cap trips on the same tx every time. If the user sets ARGUS_DB
+// explicitly they want persistence; leave that alone.
+function resetDefaultDbIfPresent(): void {
+  if (DB_PATH !== DEFAULT_DB_PATH) return;
+  for (const suffix of ["", "-shm", "-wal"]) {
+    const p = DB_PATH + suffix;
+    try {
+      unlinkSync(p);
+    } catch {
+      // Missing file is the happy case.
+    }
+  }
+}
 
 function findAnvilBinary(): string {
   const candidates = [
@@ -85,6 +132,7 @@ async function startAnvil(): Promise<ChildProcess> {
 }
 
 async function main(): Promise<void> {
+  resetDefaultDbIfPresent();
   const anvil = await startAnvil();
   let exitCode = 0;
 
