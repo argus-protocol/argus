@@ -149,16 +149,6 @@ Contributions welcome. For v0, the highest-value ways to help:
 - **PRs:** please open an issue before sending non-trivial patches, so
   architectural intent can be aligned first.
 
-## Funding
-
-Seeking the **Ethereum Foundation ESP Wishlist** grant under *"Existing
-Tooling for Ethereum Developers"* — account-abstraction infrastructure
-category. Application pending; public milestone plan is the one committed
-here.
-
-If Argus is useful to you and you can sponsor development directly, open an
-issue tagged `sponsorship` or email the address above.
-
 ## Author
 
 Kristiyan Petrov — solo maintainer, building part-time alongside a separate

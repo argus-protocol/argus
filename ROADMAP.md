@@ -53,10 +53,3 @@ synchronous policy gate, off-chain signature parsing. See
 - [ ] First paying customer OR major grant secured
 - [ ] Public launch thread + ProductHunt
 
-## Grant calendar
-
-- [x] **EF ESP Office Hours** — submitted 2026-04-22; wait 3–6 weeks for scheduled slot
-- [ ] **EF ESP Wishlist** (primary) — formal application after Office Hours feedback
-- [ ] Base Builder Grants — rolling
-- [ ] Arbitrum Foundation — rolling
-- [ ] Optimism RetroPGF — late 2026 (needs traction first)
