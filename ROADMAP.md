@@ -10,12 +10,12 @@ Scope ruthlessly minimal. One adapter, one policy, one dashboard, one alert chan
 - [x] Daily spend-cap policy (native ETH, UTC-day key)
 - [x] Console alerter
 - [x] Docker + docker-compose for local-host deploy
-- [ ] Coinbase AgentKit adapter — β seam (wrap `EvmWalletProvider`), observe-only
-- [ ] Local anvil-based integration test harness (no CDP keys required)
+- [x] Coinbase AgentKit adapter — β seam (wrap `EvmWalletProvider`), observe-only
+- [x] Local anvil-based integration test harness (no CDP keys required) — `scripts/demo-agentkit.ts`
 - [x] Discord webhook alerter
 - [x] Minimal dashboard: Fleet / Agent / Alerts pages with SSE live refresh (hono + SSR HTML + Tailwind CDN; JSON API from day 1 so SPA swap is frontend-only)
-- [ ] 90-second demo screencap
-- [ ] First public dev log entry
+- [x] Public demo walkthrough — [`docs/demo.md`](./docs/demo.md), reproducible end-to-end run with real output
+- [x] First public dev log entry — [`docs/devlog/2026-04-22-v0-m1-shipped.md`](./docs/devlog/2026-04-22-v0-m1-shipped.md)
 
 Explicit deferrals for v0.2+: calldata decode for ERC20, action-level α layer,
 synchronous policy gate, off-chain signature parsing. See
@@ -25,7 +25,7 @@ synchronous policy gate, off-chain signature parsing. See
 
 - [ ] One Tier C design partner integrated
 - [ ] Iterate on their real feedback
-- [ ] Public dev log started (weekly)
+- [x] Public dev log started — [`docs/devlog/`](./docs/devlog/) (first entry shipped; cadence is "material over schedule")
 
 ## v0.2 — second SDK adapter (Month 2)
 
